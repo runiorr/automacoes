@@ -19,15 +19,21 @@ function iterateRow (data, howManyRows) {
    let rowArray = data[i];
    let splitString = rowArray[0].split("+");
    for (var j = 0; j < splitString.length; j++) {
-     if (splitString[j] == " 1UB ") { // Escolher variável a ser procurada - EX: " 1UB "
-       UB = UB + 1;
-     } else if (splitString[j] == " 1UI ") { // Escolher variável a ser procurada - EX: " 1UI "
-       UI = UI + 1;
-     } else if (splitString[j] == " 1UA ") { // Escolher variável a ser procurada - EX: " 1UA "
-       UA = UA + 1;
+     if (splitString[j] == " 1UB " 
+       || splitString[j] == "1UB " 
+       || splitString[j] == " 1UB" ) { // Escolher variável a ser procurada - EX: " 1UB "
+         UB = UB + 1;
+      } else if (splitString[j] == " 1UI " 
+       || splitString[j] == "1UI " 
+       || splitString[j] == " 1UI" ) { // Escolher variável a ser procurada - EX: " 1UI "
+         UI = UI + 1;
+      } else if (splitString[j] == " 1UA " 
+       || splitString[j] == "1UA " 
+       || splitString[j] == " 1UA" ) { // Escolher variável a ser procurada - EX: " 1UA "
+         UA = UA + 1;
+       }
      }
    }
- }
 }
 
 function storeValue(cellPosition, newValue) {
