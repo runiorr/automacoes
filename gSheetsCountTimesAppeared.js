@@ -1,23 +1,23 @@
-//@OnlyCurrentDoc
-var X = 0;
-var Y = 0;
-var Z = 0;
+var UB = 0;
+var UI = 0;
+var UA = 0;
 
 function setUsersCount() {
   var fromColumn = 'G'    // Escolhe a coluna a ser iterada - EX: 'G'
   var fromRow = 4         // Escolhe a linha inicial - EX: 4
-  var toRow = 10          // Escolhe a linha final - EX: 10
+  var howManyRows = 2     // Escolhe quantas linhas - EX: 2
   var column = getFullColumn (fromColumn, fromRow);
   var data = column.getValues();
-  iterateRow(data, toRow);
-  storeValue(0, "H1", X) // Escolher qual célula vai sobrescrever - EX: "H1"
-  storeValue(0, "H2", Y) // Escolher qual célula vai sobrescrever - EX: "H2"
-  storeValue(0, "H3", Z) // Escolher qual célula vai sobrescrever - EX: "H3"
+  iterateRow(data, howManyRows);
+  storeValue("J3", UB) // Escolher qual célula vai sobrescrever - EX: "J3"
+  storeValue("K3", UI) // Escolher qual célula vai sobrescrever - EX: "K3"
+  storeValue("L3", UA) // Escolher qual célula vai sobrescrever - EX: "L3"
 }
 
-function iterateRow (data, toRow) {
-  for (var i = 0; i < toRow; i++) {
-    var splitString = data[i][0].split("+");
+function iterateRow (data, howManyRows) {
+  for (var i = 0; i <= howManyRows; i++) {
+    let rowArray = data[i];
+    let splitString = rowArray[0].split("+");
     for (var j = 0; j < splitString.length; j++) {
       if (splitString[j] == " 1UB ") {                    // Escolher variável a ser procurada - EX: " 1UB "
         UB = UB + 1;
@@ -30,14 +30,14 @@ function iterateRow (data, toRow) {
   }
 }
 
-function storeValue(sheetPosition, cellPosition, newValue) {
-  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheets()[sheetPosition];
-  var cell = sheet.getRange(cellPosition); 
+function storeValue(cellPosition, newValue) {
+  var Sheets = SpreadsheetApp.openByUrl("SPREADSHEET_URL").getSheetByName("SHEET_NAME");
+  var cell = Sheets.getRange(cellPosition); 
   cell.setValue(newValue);
 }
 
-function getFullColumn(column, startIndex) {
-  var sheet = SpreadsheetApp.getActiveSpreadsheet();
-  var lastRow = sheet.getLastRow();
-  return sheet.getRange(column+startIndex+':'+column+lastRow);
+function getFullColumn(column, startIndex){
+  var Sheets = SpreadsheetApp.openByUrl("SPREADSHEET_URL").getSheetByName("SHEET_NAME");
+  var lastRow = Sheets.getLastRow();
+  return Sheets.getRange(column+startIndex+':'+column+lastRow);
 }
