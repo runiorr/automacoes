@@ -2,9 +2,9 @@ from os import walk, mkdir, path, replace
 
 current_path = path.dirname(path.abspath(__file__)) + '/'
 
-(dirpath, dirnames, filenames) = next(walk(current_path)) 
+(dirpath, dirnames, filenames) = next(walk(current_path))
 
-extensions = set( map( lambda file : file[1] , map(path.splitext, filenames )))
+extensions = set(map(lambda file:file[1], map(path.splitext, filenames)))
 
 for ext in extensions:
     try:
