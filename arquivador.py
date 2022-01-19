@@ -2,29 +2,19 @@ from os import walk, mkdir, path, replace
 
 current_path = path.dirname(path.abspath(__file__)) + '/'
 
-folder_content = []
-for (dirpath, dirnames, filenames) in walk(current_path):
-    folder_content.extend(filenames)
-    break
+(dirpath, dirnames, filenames) = next(walk(current_path)) 
 
-extensions = []
-for file in folder_content:
-    extensions.append(file.split('.')[1])
-extensions = set(extensions)
+extensions = set(map(lambda file : file.split('.')[1], filenames))
 
 for ext in extensions:
     try:
-        dir_name = current_path + str(ext) + "_folder"
+        dir_name = current_path + ext + "_folder/"
         mkdir(dir_name)
     except FileExistsError:
-        print("Directory "+ ext +" already exists")
+        print("Pasta "+ ext +" já existe")
 
-for file in folder_content:
+for file in filenames:
     ext_folder = file.split('.')[1] + '_folder/'
-    filename = str(file)
-    if (filename == "arquivador.py"):
+    if (file == "arquivador.py"):
         continue
-    replace(current_path + filename, current_path + ext_folder + filename)
-
-
-
+    replace(current_path + file, current_path + ext_folder + file)
