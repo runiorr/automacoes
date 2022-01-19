@@ -22,7 +22,7 @@ for ext in extensions:
 for file in folder_content:
     ext_folder = file.split('.')[1] + '_folder/'
     filename = str(file)
-    if (filename == "filer.py"):
+    if (filename == "arquivador.py"):
         continue
     replace(current_path + filename, current_path + ext_folder + filename)
 
