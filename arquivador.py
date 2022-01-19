@@ -17,20 +17,20 @@ extensions = set([path.splitext(file)[1] for file in folder_files])
 
 dir_name = lambda ext: current_path + ext + "_folder/"
 
-def dir(ext):
+def make_dir(ext):
     try:
         mkdir(dir_name(ext))
         print("Pasta "+ ext +" criada")
     except FileExistsError:
         print("Pasta "+ ext +" já existe")
 
-ext = [dir(ext) for ext in extensions]
+ext = [make_dir(ext) for ext in extensions]
 
 def transfer(file):
     try:
-        ext_folder = "." + file.split('.')[-1] + '_folder/'
         if (file == "arquivador.py"):
-            raise error(file) 
+            raise error(file)
+        ext_folder = "." + file.split('.')[-1] + '_folder/'
         replace(current_path + file, current_path + ext_folder + file)
     except error as e:
         print(e.msg)
