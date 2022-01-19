@@ -1,38 +1,45 @@
-import sys
+import sys, time
 from os import walk, mkdir, path, replace
 
-class error(Exception):
-    def __init__(self, file):
-        self.msg = file + " permanece no diretório " + current_path
+start = time.time()
 
 current_path = path.dirname(path.abspath(__file__)) + '/'
 
-folder_files = [files[2] for files in walk(current_path)][0]
+folder_files = next(walk(current_path))[-1]
 
-if (len(folder_files) == 1):
-    print("Nada para ser arquivado")
+extensions = set([path.splitext(file)[-1] for file in folder_files if not (path.splitext(file)[-1] == '')])
+
+if (len(extensions) == 1):
+    print("Nada para ser arquivado em {}".format(current_path))
     sys.exit()
 
-extensions = set([path.splitext(file)[1] for file in folder_files])
-
-dir_name = lambda ext: current_path + ext + "_folder/"
+folder_name = lambda ext: current_path + ext + "_folder/"
 
 def make_dir(ext):
     try:
-        mkdir(dir_name(ext))
+        if (ext == ''):
+            return
+        mkdir(folder_name(ext))
         print("Pasta "+ ext +" criada")
     except FileExistsError:
         print("Pasta "+ ext +" já existe")
 
-ext = [make_dir(ext) for ext in extensions]
+[make_dir(ext) for ext in extensions]
+
+arquivos = 0
 
 def transfer(file):
-    try:
-        if (file == "arquivador.py"):
-            raise error(file)
-        ext_folder = "." + file.split('.')[-1] + '_folder/'
-        replace(current_path + file, current_path + ext_folder + file)
-    except error as e:
-        print(e.msg)
+    if (len(file.split('.')) < 2):
+        print("arquivo {} não possui extensão".format(file))
+        return
+    if (file == "arquivador.py"):
+        return
+    ext_folder = "." + file.split('.')[-1] + '_folder/'
+    replace(current_path + file, current_path + ext_folder + file)
+    global arquivos
+    arquivos += 1
 
-file = [transfer(file) for file in folder_files]
+[transfer(file) for file in folder_files]
+
+end = time.time()
+print("O script demorou {} segundos para organizar {} arquivos\n".format(end - start, arquivos))
