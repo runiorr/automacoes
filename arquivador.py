@@ -1,21 +1,38 @@
+import sys
 from os import walk, mkdir, path, replace
+
+class error(Exception):
+    def __init__(self, file):
+        self.msg = file + " permanece no diretório " + current_path
 
 current_path = path.dirname(path.abspath(__file__)) + '/'
 
-(dirpath, dirnames, filenames) = next(walk(current_path))
+folder_files = [files[2] for files in walk(current_path)][0]
 
-extensions = set(map(lambda file:file[1], map(path.splitext, filenames)))
+if (len(folder_files) == 1):
+    print("Nada para ser arquivado")
+    sys.exit()
 
-for ext in extensions:
+extensions = set([path.splitext(file)[1] for file in folder_files])
+
+dir_name = lambda ext: current_path + ext + "_folder/"
+
+def dir(ext):
     try:
-        dir_name = current_path + ext + "_folder/"
-        mkdir(dir_name)
+        mkdir(dir_name(ext))
         print("Pasta "+ ext +" criada")
     except FileExistsError:
         print("Pasta "+ ext +" já existe")
 
-for file in filenames:
-    ext_folder = "." + file.split('.')[-1] + '_folder/'
-    if (file == "arquivador.py"):
-        continue
-    replace(current_path + file, current_path + ext_folder + file)
+ext = [dir(ext) for ext in extensions]
+
+def transfer(file):
+    try:
+        ext_folder = "." + file.split('.')[-1] + '_folder/'
+        if (file == "arquivador.py"):
+            raise error(file) 
+        replace(current_path + file, current_path + ext_folder + file)
+    except error as e:
+        print(e.msg)
+
+file = [transfer(file) for file in folder_files]
