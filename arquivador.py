@@ -9,7 +9,7 @@ folder_files = next(walk(current_path))[-1]
 
 extensions = set([path.splitext(file)[-1] for file in folder_files if not (path.splitext(file)[-1] == '')])
 
-if (len(extensions) == 1):
+if (len(folder_files) == 1):
     print("Nada para ser arquivado em {}".format(current_path))
     sys.exit()
 
@@ -29,8 +29,7 @@ def make_dir(ext):
 arquivos = 0
 
 def transfer(file):
-    if (len(file.split('.')) < 2):
-        print("arquivo {} não possui extensão".format(file))
+    if (len(file.split('.')) < 2 or file.split('.')[0] == ''):
         return
     if (file == "arquivador.py"):
         return
@@ -42,4 +41,4 @@ def transfer(file):
 [transfer(file) for file in folder_files]
 
 end = time.time()
-print("O script demorou {} segundos para organizar {} arquivos\n".format(end - start, arquivos))
+print("\nO script demorou {} segundos para organizar {} arquivos\n".format(end - start, arquivos))
