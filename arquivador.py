@@ -4,7 +4,7 @@ current_path = path.dirname(path.abspath(__file__)) + '/'
 
 (dirpath, dirnames, filenames) = next(walk(current_path)) 
 
-extensions = set(map(lambda file : file.split('.')[1], filenames))
+extensions = set(map(lambda file : file.split('.')[-1], filenames))
 
 for ext in extensions:
     try:
