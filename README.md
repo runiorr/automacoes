@@ -4,4 +4,4 @@
 
 **file-organizer.py** - Organiza arquivos do diretório onde é executado pela extensão deles. Possui 2 flags: 
 
--p --path | -e --extension - A primeira recebe a pasta a ser organizada e a segunda o tipo do arquivo.
+-p --path | -e --extension - A primeira recebe a pasta a ser organizada e a segunda as extensões que ele irá organizar.
