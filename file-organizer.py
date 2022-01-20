@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-import sys, time, argparse
+import time, argparse
 from os import walk, mkdir, path, replace, getcwd
 
 start = time.time()
@@ -25,10 +25,6 @@ if(args.extension):
     extensions = set(args.extension.split(','))
 else:
     extensions = set([path.splitext(file)[-1].split('.')[1] for file in folder_files if not (path.splitext(file)[-1] == '')]) 
-
-if (len(folder_files) == 1):
-    print("Nada para ser arquivado em {}".format(current_path))
-    sys.exit()
 
 folder_name = lambda ext: current_path + ext + "_folder/"
 
