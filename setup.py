@@ -7,8 +7,9 @@ setup(
     install_requires=[
         'click'
     ],
-    entry_points='''
-    [console_scripts]
-    organizer=organizer:organizer
-    '''
+    entry_points={
+        'console_scripts': [
+            'organize=organizer:organizer',
+        ],
+    },
 )
