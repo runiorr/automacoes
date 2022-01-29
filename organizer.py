@@ -2,9 +2,6 @@ import click
 from os import walk, mkdir, path, replace, getcwd
 from time import time
 
-""" /home/runior/dev/file-order/files 
-"""
-
 @click.command()
 @click.option('--path', '-p', help="Pasta a ser organizada", prompt="Diretório completo da pasta")
 @click.option('--extension', '-e', help="Arquivos que serão organizados", prompt="Tipos de arquivos (ex: mp3, txt, pdf)")
@@ -72,4 +69,3 @@ def transfer(path, file):
         arquivos += 1
     except:
         return
-
